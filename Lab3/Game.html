@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+        window.onload = function () {
+            function Celebrity(name, birthdate, img) {
+                this.name = name;
+                this.birthdate = birthdate;
+                this.img = img;
+            }
+            var celebrities = new Array(30);
+            var Celebrity0 = new Celebrity("Gal Gadot", new Date("1985-4-30"), "images/galGadot.jpg");
+            var Celebrity1 = new Celebrity("Tom Hardy", new Date("1977-9-15"), "images/tomHardy.jpg");
+            var Celebrity2 = new Celebrity("Emilia Clark", new Date("1986-10-23"), "images/emiliaClark.jpg");
+            var Celebrity3 = new Celebrity("Alexandra Daddario", new Date("1986-3-16"), "images/alexandraDaddario.jpg");
+            var Celebrity4 = new Celebrity("Bill Skarsgard", new Date("1990-8-9"), "images/billSkarsgard.jpg");
+            var Celebrity5 = new Celebrity("Pom Klementieff", new Date("1986-4-3"), "images/pomKlementieff.jpg");
+            var Celebrity6 = new Celebrity("Ana de Armas", new Date("1988-4-30"), "images/anaDeArmas.jpg");
+            var Celebrity7 = new Celebrity("Dan Stevens", new Date("1982-10-10"), "images/danStevens.jpg");
+            var Celebrity8 = new Celebrity("Sofia Boutella", new Date("1982-4-3"), "images/sofiaBoutella.jpg");
+            var Celebrity9 = new Celebrity("Katherine Langford", new Date("1996-4-29"), "images/katherineLangford.jpg");
+            var Celebrity10 = new Celebrity("Karen Gillan", new Date("1987-11-28"), "images/karenGillan.jpg");
+            var Celebrity11 = new Celebrity("Margot Robbie", new Date("1990-7-2"), "images/margotRobbie.jpg");
+            var Celebrity12 = new Celebrity("Felicity Jones", new Date("1983-10-17"), "images/felicityJones.jpg");
+            var Celebrity13 = new Celebrity("Emma Stone", new Date("1988-11-6"), "images/emmaStone.jpg");
+            var Celebrity14 = new Celebrity("Dylan Minnette", new Date("1996-12-29"), "images/dylanMinnette.jpg");
+            var Celebrity15 = new Celebrity("Jennifer Lawrence", new Date("1990-8-15"), "images/jenniferLawrence.jpg");
+            var Celebrity16 = new Celebrity("Alicia Vikander", new Date("1988-10-3"), "images/aliciaVikander.jpg");
+            var Celebrity17 = new Celebrity("Britt Robertson", new Date("1990-4-18"), "images/brittRobertson.jpg");
+            var Celebrity18 = new Celebrity("Ruby Rose", new Date("1986-3-20"), "images/rubyRose.jpg");
+            var Celebrity19 = new Celebrity("Brie Larson", new Date("1989-10-1"), "images/brieLarson.jpg");
+            var Celebrity20 = new Celebrity("Keanu Reeves", new Date("1964-9-2"), "images/keanuReeves.jpg");
+            var Celebrity21 = new Celebrity("Sophia Lillis", new Date("2002-2-13"), "images/sophiaLillis.jpg");
+            var Celebrity22 = new Celebrity("Jessica Henwick", new Date("1992-8-30"), "images/jessicaHenwick.jpg");
+            var Celebrity23 = new Celebrity("Cara Delevingne", new Date("1992-8-12"), "images/caraDelevingne.jpg");
+            var Celebrity24 = new Celebrity("Haley Bennett", new Date("1988-1-7"), "images/haleyBennett.jpg");
+            var Celebrity25 = new Celebrity("Luke Evans", new Date("1979-4-15"), "images/lukeEvans.jpg");
+            var Celebrity26 = new Celebrity("Teresa Palmer", new Date("1986-2-26"), "images/teresaPalmer.jpg");
+            var Celebrity27 = new Celebrity("Tom Holland", new Date("1996-6-1"), "images/tomHolland.jpg");
+            var Celebrity28 = new Celebrity("Alison Brie", new Date("1982-12-29"), "images/alisonBrie.jpg");
+            var Celebrity29 = new Celebrity("Robin Wright", new Date("1966-4-8"), "images/robinWright.jpg");
+            celebrities[0] = Celebrity0;
+            celebrities[1] = Celebrity1;
+            celebrities[2] = Celebrity2;
+            celebrities[3] = Celebrity3;
+            celebrities[4] = Celebrity4;
+            celebrities[5] = Celebrity5;
+            celebrities[6] = Celebrity6;
+            celebrities[7] = Celebrity7;
+            celebrities[8] = Celebrity8;
+            celebrities[9] = Celebrity9;
+            celebrities[10] = Celebrity10;
+            celebrities[11] = Celebrity11;
+            celebrities[12] = Celebrity12;
+            celebrities[13] = Celebrity13;
+            celebrities[14] = Celebrity14;
+            celebrities[15] = Celebrity15;
+            celebrities[16] = Celebrity16;
+            celebrities[17] = Celebrity17;
+            celebrities[18] = Celebrity18;
+            celebrities[19] = Celebrity19;
+            celebrities[20] = Celebrity20;
+            celebrities[21] = Celebrity21;
+            celebrities[22] = Celebrity22;
+            celebrities[23] = Celebrity23;
+            celebrities[24] = Celebrity24;
+            celebrities[25] = Celebrity25;
+            celebrities[26] = Celebrity26;
+            celebrities[27] = Celebrity27;
+            celebrities[28] = Celebrity28;
+            celebrities[29] = Celebrity29;
+
+            var indexUsed = Array();
+            for (var i = 0; i < 10; i++) {
+                var index = Math.floor(Math.random() * celebrities.length);
+                while (indexUsed.indexOf(index) != -1) {
+                    index = Math.floor(Math.random() * celebrities.length);
+                }
+                indexUsed.push(index);
+            }
+
+            var points = 0;
+            var rounds = 0;
+            var high = 0;
+            checkCookie();
+            high = getCookie("highscore");
+            document.getElementById("highscore").innerHTML = "Highscore: " + high;
+
+            var current;
+            var celebObj;
+            var celebName;
+            var celebBD;
+            var celebImage;
+            var img;
+
+            var timerVar;
+            var totalSeconds = 0;
+            function countTimer() {
+                ++totalSeconds;
+                var hour = Math.floor(totalSeconds / 3600);
+                var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+                var seconds = totalSeconds - (hour * 3600 + minute * 60);
+
+                document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+            }
+            var btnStart_click = function () {
+                timerVar = setInterval(countTimer, 1000);
+                current = indexUsed.shift();
+                celebObj = celebrities[current];
+                celebName = celebObj.name;
+                celebBD = celebObj.birthdate;
+                celebImage = celebObj.img;
+                img = document.getElementById("image").src = celebImage;
+                document.getElementById("startBtnDiv").style.visibility = "hidden";
+                document.getElementById("nameAnswerDiv").style.visibility = "visible";
+                document.getElementById("nameBtnDiv").style.visibility = "visible";
+                document.getElementById("nameQuestionDiv").style.visibility = "visible";
+                document.getElementById("btnName").focus();
+                rounds++;
+                updateScore();
+            }
+
+            var btnName_click = function () {
+                var input = document.getElementById("txtName").value;
+                if (input == "") {
+                    document.getElementById("message").innerHTML = "Name cannot be blank.";
+                    document.getElementById("txtName").focus();
+                    return;
+                }
+                else if (input.toUpperCase() == celebName.toUpperCase()) {
+                    document.getElementById("message").innerHTML = "Previous guess was correct.";
+                    points = points + 10;
+                    rounds++;
+                    current = indexUsed.shift();
+                    celebObj = celebrities[current];
+                    celebName = celebObj.name;
+                    celebBD = celebObj.birthdate;
+                    celebImage = celebObj.img;
+                    img = document.getElementById("image").src = celebImage;
+                    document.getElementById("txtName").value = "";
+                    document.getElementById("txtName").focus();
+                    updateScore();
+                    if (rounds == 10) {
+                        document.getElementById("txtWager").focus();
+                        document.getElementById("nameQuestionDiv").style.visibility = "hidden";
+                        document.getElementById("nameAnswerDiv").style.visibility = "hidden";
+                        document.getElementById("nameBtnDiv").style.visibility = "hidden";
+                        document.getElementById("ageQuestionDiv").style.visibility = "visible";
+                        document.getElementById("ageAnswerDiv").style.visibility = "visible";
+                        document.getElementById("ageBtnDiv").style.visibility = "visible";
+                        document.getElementById("wagerQuestionDiv").style.visibility = "visible";
+                        document.getElementById("wagerAnswerDiv").style.visibility = "visible";
+                        document.getElementById("error").innerHTML = "";
+                        document.getElementById("questionWager").innerHTML = "You can wager up to " + points + ". You will get double your wager if you guess it correctly.";
+                    }
+                }
+                else {
+                    document.getElementById("message").innerHTML = "Previous guess was incorrect.";
+                    rounds++;
+                    current = indexUsed.shift();
+                    celebObj = celebrities[current];
+                    celebName = celebObj.name;
+                    celebBD = celebObj.birthdate;
+                    celebImage = celebObj.img;
+                    img = document.getElementById("image").src = celebImage;
+                    document.getElementById("txtName").value = "";
+                    document.getElementById("txtName").focus();
+                    updateScore();
+                    if (rounds == 10) {
+                        document.getElementById("txtWager").focus();
+                        document.getElementById("nameQuestionDiv").style.visibility = "hidden";
+                        document.getElementById("nameAnswerDiv").style.visibility = "hidden";
+                        document.getElementById("nameBtnDiv").style.visibility = "hidden";
+                        document.getElementById("ageQuestionDiv").style.visibility = "visible";
+                        document.getElementById("ageAnswerDiv").style.visibility = "visible";
+                        document.getElementById("ageBtnDiv").style.visibility = "visible";
+                        document.getElementById("wagerQuestionDiv").style.visibility = "visible";
+                        document.getElementById("wagerAnswerDiv").style.visibility = "visible";
+                        document.getElementById("error").innerHTML = "";
+                        document.getElementById("questionWager").innerHTML = "You can wager up to " + points + ". You will get double your wager if you guess it correctly.";
+                    }
+                }
+            }
+
+            var btnAge_click = function () {
+                var wager = document.getElementById("txtWager").value;
+                if (wager == "") {
+                    document.getElementById("error").innerHTML = "Wager cannot be blank.";
+                    document.getElementById("txtWager").focus();
+                    return;
+                }
+                else if (isNaN(wager) || wager < 0 || wager > points) {
+                    document.getElementById("error").innerHTML = "Invalid wager.";
+                    document.getElementById("txtWager").focus();
+                    return;
+                }
+                var age = document.getElementById("txtAge").value;
+                if (age == "") {
+                    document.getElementById("error").innerHTML = "Age cannot be blank.";
+                    document.getElementById("txtAge").focus();
+                    return;
+                }
+                else if (isNaN(age)) {
+                    document.getElementById("error").innerHTML = "Invalid age.";
+                    document.getElementById("txtAge").focus();
+                    return;
+                }
+                else {
+                    var celebAge = getAge(celebBD);
+                    if (celebAge - age <= 2 || age - celebAge >= -2) {
+                        clearInterval(timerVar);
+                        points = (points - wager) + (wager * 2);
+                        if (totalSeconds <= 180) {
+                            points = points * 1.5;
+                            document.getElementById("message").innerHTML = "Guess is correct. You have finished quickly and your points are mulitplied by 1.5. You now have " + points + " points.";
+                        }
+                        else {
+                            document.getElementById("message").innerHTML = "Guess is correct. You now have " + points + " points.";
+                        }
+                        document.getElementById("ageQuestionDiv").style.visibility = "hidden";
+                        document.getElementById("ageAnswerDiv").style.visibility = "hidden";
+                        document.getElementById("ageBtnDiv").style.visibility = "hidden";
+                        document.getElementById("wagerQuestionDiv").style.visibility = "hidden";
+                        document.getElementById("wagerAnswerDiv").style.visibility = "hidden";
+                        document.getElementById("newGameDiv").style.visibility = "visible";
+                        document.getElementById("error").innerHTML = "";
+                        updateScore();
+                        if (points > high) {
+                            high = points;
+                            setCookie("highscore", high, 365);
+                        }
+
+                    }
+                    else {
+                        points = (points - wager);
+                        clearInterval(timerVar);
+                        if (totalSeconds <= 180) {
+                            points = points * 1.5;
+                            document.getElementById("message").innerHTML = "Guess is incorrect. You have finished quickly and your points are mulitplied by 1.5. You now have " + points + " points.";
+                        }
+                        else {
+                            document.getElementById("message").innerHTML = "Guess is incorrect. You now have " + points + " points.";
+                        }
+                        document.getElementById("ageQuestionDiv").style.visibility = "hidden";
+                        document.getElementById("ageAnswerDiv").style.visibility = "hidden";
+                        document.getElementById("ageBtnDiv").style.visibility = "hidden";
+                        document.getElementById("wagerQuestionDiv").style.visibility = "hidden";
+                        document.getElementById("wagerAnswerDiv").style.visibility = "hidden";
+                        document.getElementById("newGameDiv").style.visibility = "visible";
+                        document.getElementById("error").innerHTML = "";
+                        updateScore();
+                        if (points > high) {
+                            high = points;
+                            setCookie("highscore", high, 365);
+                        }
+
+                    }
+                }
+            }
+
+            function getAge(dateString) {
+                var today = new Date();
+                var birthDate = new Date(dateString);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                return age;
+            }
+
+            var btnReset_click = function () {
+                window.location.reload();
+            }
+
+            function updateScore() {
+                document.getElementById("points").innerHTML = "Points: " + points;
+                document.getElementById("rounds").innerHTML = "Round: " + rounds;
+
+            }
+
+            document.getElementById("btnName").addEventListener('click', btnName_click);
+            document.getElementById("btnStart").addEventListener('click', btnStart_click);
+            document.getElementById("btnAge").addEventListener('click', btnAge_click);
+            document.getElementById("btnReset").addEventListener('click', btnReset_click);
+        }
+
+        function setCookie(cname, highscore, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + highscore + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            var highscore = getCookie("highscore");
+            if (highscore != "") {
+            } else {
+                highscore = 0;
+                setCookie("highscore", highscore, 365);
+            }
+        }
+
+    </script>
+    <link href="styles/GameStyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <header>The Guessing Game</header>
+    <div class="content">
+        <div id="scoreDiv">
+            <p id="highscore">Highscore: 0</p>
+            <p id="points">Points: 0</p>
+            <p id="rounds">Round: 0</p>
+            <p id="timer"></p>
+        </div>
+
+        <div id="imageDiv">
+            <br />
+            <img id="image" src="images/question.jpg" style="width:250px; height:300px;" />
+        </div>
+        <div id="messageDiv">
+            <p id="message"></p>
+            <p id="error"></p>
+        </div>
+        <div id="wagerQuestionDiv" style="visibility:hidden;">
+            <p id="questionWager"></p>
+        </div>
+        <div id="wagerAnswerDiv" style="visibility:hidden;">
+            Wager: <input id="txtWager" type="text" />
+        </div>
+        <div id="nameQuestionDiv" style="visibility:hidden;">
+            <p id="questionName">Name this celebrity.</p>
+        </div>
+        <div id="ageQuestionDiv" style="visibility:hidden;">
+            <p id="questionAge">Guess the age of this celebrity.</p>
+        </div>
+        <div id="ageAnswerDiv" style="visibility:hidden;">
+            Age:<input id="txtAge" type="text" />
+        </div>
+
+        <div id="nameAnswerDiv" style="visibility:hidden;">
+            Name: <input id="txtName" type="text" />
+        </div>
+        <div id="startBtnDiv">
+            <button id="btnStart">Start</button>
+        </div>
+        <div id="nameBtnDiv" style="visibility:hidden;">
+            <button id="btnName">Confirm</button>
+        </div>
+        <div id="ageBtnDiv" style="visibility:hidden;">
+            <button id="btnAge">Confirm</button>
+        </div>
+        <div id="newGameDiv" style="visibility:hidden;">
+            <button id="btnReset">Reset</button>
+            <br />
+        </div>
+        <div id="footer">Nicholas Tran | tug26951@temple.edu</div>
+    </div>
+</body>
+</html>
